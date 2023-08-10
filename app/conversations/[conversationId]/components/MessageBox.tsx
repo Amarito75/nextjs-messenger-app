@@ -21,7 +21,7 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
     .map((user) => user.name)
     .join(", ");
 
-  const container = clsx("flex gap-3 p-4", isOwn && "justify-end");
+  const container = clsx("flex gap-2 p-4", isOwn && "justify-end");
 
   const avatar = clsx(isOwn && "order-2");
 
@@ -29,8 +29,8 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
 
   const message = clsx(
     "text-sm w-fit overflow-hidden",
-    isOwn ? "bg-sky-500 text-white" : "bg-gray-100",
-    data.image ? "rounded-md p-0" : "rounded-full py-4 px-3"
+    isOwn ? "bg-black text-white" : "bg-white drop-shadow-lg",
+    data.image ? "rounded-md p-0" : "rounded-b-xl rounded-tl-xl py-3 px-3"
   );
   return (
     <div className={container}>
@@ -40,9 +40,6 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
       <div className={body}>
         <div className="flex items-center gap-1">
           <div className="text-sm text-gray-500">{data.sender.name}</div>
-          <div className="text-xs text-gray-400">
-            {format(new Date(data.createdAt), "p")}
-          </div>
         </div>
         <div className={message}>
           {data.image ? (
@@ -56,6 +53,9 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
           ) : (
             <div>{data.body}</div>
           )}
+          <div className="flex justify-end text-[10px] text-gray-300">
+            {format(new Date(data.createdAt), "p")}
+          </div>
         </div>
         {isLast && isOwn && seenList.length > 0 && (
           <div className="text-xs font-light text-gray-500">{`Seen by ${seenList}`}</div>

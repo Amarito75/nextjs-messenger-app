@@ -66,8 +66,8 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
     <div
       onClick={handleClick}
       className={clsx(
-        "w-full relative flex items-center space-x-3 hover:bg-neutral-100 rounded-lg transition cursor-pointer p-3",
-        selected ? "bg-neutral-100" : "bg-white"
+        "w-full relative flex items-center space-x-3 hover:bg-neutral-100 rounded-2xl transition cursor-pointer p-4",
+        selected ? "bg-neutral-300" : "bg-white"
       )}
     >
       <Avatar user={otherUser} />

@@ -32,13 +32,15 @@ const Form = () => {
     axios.post("/api/messages", { ...data, conversationId });
   };
   return (
-    <div className="py-4 px-4 bg-white border-t flex items-center gap-2 lg:gap-4 w-full">
+    <div className="py-4 px-4 bg-neutral-800 flex items-center gap-2 lg:gap-4 w-full">
       <CldUploadButton
         options={{ maxFiles: 1 }}
         onUpload={handleUpload}
         uploadPreset="p4ox6bgc"
       >
-        <HiPhoto size={30} className="text-sky-500" />
+        <div className="bg-white drop-shadow-lg hover:bg-gray-100 p-4 rounded-full">
+          <HiPhoto size={24} className="text-black" />
+        </div>
       </CldUploadButton>
       <form
         onSubmit={handleSubmit(onSubmit)}
@@ -49,13 +51,13 @@ const Form = () => {
           register={register}
           errors={errors}
           required
-          placeholder="Write a message"
+          placeholder="Type a message"
         />
         <button
           type="submit"
-          className="rounded-full p-2 bg-sky-500 cursor-pointer hover:bg-sky-600 transition"
+          className="rounded-full p-4 bg-white drop-shadow-lg cursor-pointer hover:bg-gray-100 transition"
         >
-          <HiPaperAirplane size={18} className="text-white" />
+          <HiPaperAirplane size={24} className="text-black" />
         </button>
       </form>
     </div>
