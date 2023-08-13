@@ -61,11 +61,11 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-12">
-          <div className="border-b border-gray-900/10 pb-12">
-            <h2 className="text-base font-semibold leading-7 text-gray-900">
+          <div className="border-b border-white/10 pb-12">
+            <h2 className="text-base font-semibold leading-7 text-white">
               Profile
             </h2>
-            <p className="mt-1 text-sm leading-6 text-gray-600">
+            <p className="mt-1 text-sm leading-6 text-gray-300">
               Edit your public informations
             </p>
             <div className="mt-10 flex flex-col gap-y-8">
@@ -77,8 +77,8 @@ const SettingsModal: React.FC<SettingsModalProps> = ({
                 register={register}
                 errors={errors}
               />
-              <div className="">
-                <label className="block text-sm font-medium leading-6 text-gray-900">
+              <div>
+                <label className="block text-sm font-medium leading-6 text-white">
                   Photo
                 </label>
                 <div className="mt-2 flex items-center gap-x-3">

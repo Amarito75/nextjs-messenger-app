@@ -10,3 +10,22 @@ body,
   font-family: "Montserrat", sans-serif;
   height: 100%;
 }
+
+/* SCROLL BAR */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #424242;
+  border-radius: 48px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #686868;
+  border-radius: 48px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7b7b7b;
+}

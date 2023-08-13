@@ -6,6 +6,9 @@ import clsx from "clsx";
 import { format } from "date-fns";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import { useState } from "react";
+import ImageModal from "./ImageModal";
+import { HiEye } from "react-icons/hi";
 
 interface MessageBoxProps {
   data: FullMessageType;
@@ -14,6 +17,7 @@ interface MessageBoxProps {
 
 const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
   const session = useSession();
+  const [imageModalOpen, setImageModalOpen] = useState(false);
 
   const isOwn = session?.data?.user?.email === data?.sender?.email;
   const seenList = (data.seen || [])
@@ -29,8 +33,10 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
 
   const message = clsx(
     "text-sm w-fit overflow-hidden",
-    isOwn ? "bg-black text-white" : "bg-white drop-shadow-lg",
-    data.image ? "rounded-md p-0" : "rounded-b-xl rounded-tl-xl py-3 px-3"
+    isOwn
+      ? "bg-black text-white rounded-b-xl rounded-tl-xl"
+      : "bg-white drop-shadow-lg rounded-b-xl rounded-tr-xl",
+    data.image ? "rounded-md p-0 bg-transparent" : "py-3 px-3"
   );
   return (
     <div className={container}>
@@ -39,16 +45,22 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
       </div>
       <div className={body}>
         <div className="flex items-center gap-1">
-          <div className="text-sm text-gray-500">{data.sender.name}</div>
+          <div className="text-sm text-gray-300">{data.sender.name}</div>
         </div>
         <div className={message}>
+          <ImageModal
+            src={data.image}
+            isOpen={imageModalOpen}
+            onClose={() => setImageModalOpen(false)}
+          />
           {data.image ? (
             <Image
+              onClick={() => setImageModalOpen(true)}
               alt="Image"
               height={288}
               width={288}
               src={data.image}
-              className="object-cover cursor-pointer hover:scale-110 transition translate"
+              className="object-cover cursor-pointer hover:scale-95 transtion translate duration-200"
             />
           ) : (
             <div>{data.body}</div>
@@ -58,7 +70,9 @@ const MessageBox: React.FC<MessageBoxProps> = ({ data, isLast }) => {
           </div>
         </div>
         {isLast && isOwn && seenList.length > 0 && (
-          <div className="text-xs font-light text-gray-500">{`Seen by ${seenList}`}</div>
+          <div className="text-xs font-light text-gray-500">
+            <HiEye />
+          </div>
         )}
       </div>
     </div>
