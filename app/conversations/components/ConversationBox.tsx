@@ -80,7 +80,11 @@ const ConversationBox: React.FC<ConversationBoxProps> = ({
         <div className="focus:outline-none">
           <div className="flex justify-between items-center mb-1">
             <p className="text-md font-medium text-white">
-              {data.name || otherUser.name}
+              {data && data.name
+                ? data.name
+                : otherUser && otherUser.name
+                ? otherUser.name
+                : "Unknown"}
             </p>
             {lastMessage?.createdAt && (
               <p className="text-xs text-gray-300 font-light">

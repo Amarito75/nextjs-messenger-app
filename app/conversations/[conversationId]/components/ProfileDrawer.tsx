@@ -30,12 +30,26 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
   const { members } = useActiveList();
   const isActive = members.indexOf(otherUser?.email!) != -1;
   const joinedDate = useMemo(() => {
-    return format(new Date(otherUser.createdAt), "PP");
-  }, [otherUser.createdAt]);
+    // Vérifiez si otherUser est défini avant d'accéder à sa propriété createdAt
+    if (otherUser && otherUser.createdAt) {
+      return format(new Date(otherUser.createdAt), "PP");
+    } else {
+      // Gérez le cas où otherUser ou otherUser.createdAt est undefined
+      return "Date non disponible";
+    }
+  }, [otherUser]);
 
   const title = useMemo(() => {
-    return data.name || otherUser.name;
-  }, [data.name, otherUser.name]);
+    // Vérifiez si data et otherUser sont définis avant d'accéder à leur propriété name
+    if (data && data.name) {
+      return data.name;
+    } else if (otherUser && otherUser.name) {
+      return otherUser.name;
+    } else {
+      // Gérez le cas où ni data.name ni otherUser.name ne sont définis
+      return "Nom indisponible";
+    }
+  }, [data, otherUser]);
 
   const statusText = useMemo(() => {
     if (data.isGroup) {
@@ -140,7 +154,9 @@ const ProfileDrawer: React.FC<ProfileDrawerProps> = ({
                                     Email
                                   </dt>
                                   <dd className="mt-1 text-sm text-white sm:col-span-2">
-                                    {otherUser.email}
+                                    {otherUser
+                                      ? otherUser.email
+                                      : "Email non disponible"}
                                   </dd>
                                 </div>
                               )}
